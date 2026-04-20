@@ -141,3 +141,4 @@ C:\UJIKOM\PeminjamanAlat\PeminjamanAlat\obj\Debug\net8.0\ref\PeminjamanAlat.dll
 C:\UJIKOM\PeminjamanAlat\PeminjamanAlat\bin\Debug\net8.0\PeminjamanAlat.staticwebassets.runtime.json
 C:\UJIKOM\PeminjamanAlat\PeminjamanAlat\obj\Debug\net8.0\PeminjamanAlat.RazorAssemblyInfo.cache
 C:\UJIKOM\PeminjamanAlat\PeminjamanAlat\obj\Debug\net8.0\PeminjamanAlat.RazorAssemblyInfo.cs
+C:\UJIKOM\PeminjamanAlat\PeminjamanAlat\obj\Debug\net8.0\PeminjamanAlat.sourcelink.json

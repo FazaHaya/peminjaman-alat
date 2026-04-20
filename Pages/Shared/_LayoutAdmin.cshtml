@@ -141,9 +141,17 @@
             <i class="bi bi-tags"></i> Kategori
         </a>
 
-        @* <a asp-page="/Admin/Log" class="nav-link @(activePage == "Log" ? "active" : "")">
+        <a asp-page="/Admin/Peminjaman" class="nav-link @(activePage == "Peminjaman" ? "active" : "")">
+            <i class="bi bi-clock-history"></i> Peminjaman
+        </a>
+
+        <a asp-page="/Admin/Pengembalian" class="nav-link @(activePage == "Pengembalian" ? "active" : "")">
+            <i class="bi bi-clock-history"></i> Pengembalian
+        </a>
+
+        <a asp-page="/Admin/Log" class="nav-link @(activePage == "Log" ? "active" : "")">
             <i class="bi bi-clock-history"></i> Log Aktivitas
-        </a> *@
+        </a>
 
         <div class="info-box">
             <div class="fw-bold mb-1">Halo, @User.Identity?.Name</div>

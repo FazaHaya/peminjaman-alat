@@ -94,7 +94,7 @@ namespace PeminjamanAlat.Pages.Admin
             if (user == null)
                 return RedirectToPage();
 
-            if (User.Identity?.Name == user.Username)
+            if (User.Identity?.Name == user.Username)   
                 return RedirectToPage();
 
             _context.Users.Remove(user);

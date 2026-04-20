@@ -32,8 +32,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cS2F0ZWdvcmkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Pinjam.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGluamFtLmNzaHRtbA==
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Log.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cTG9nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Peminjaman.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGVtaW5qYW1hbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Pengembalian.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGVuZ2VtYmFsaWFuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/User.cshtml]

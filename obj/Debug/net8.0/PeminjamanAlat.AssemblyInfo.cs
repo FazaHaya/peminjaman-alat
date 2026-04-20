@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PeminjamanAlat")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d372efb6e1986fbc0bcfafef13ac4f82c34ec288")]
 [assembly: System.Reflection.AssemblyProductAttribute("PeminjamanAlat")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PeminjamanAlat")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

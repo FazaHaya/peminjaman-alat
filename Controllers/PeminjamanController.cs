@@ -19,7 +19,6 @@ namespace PeminjamanAlat.Controllers
             _context = context;
         }
 
-        // AJUKAN PEMINJAMAN (PEMINJAM)
         [Authorize(Roles = "Peminjam")]
         [HttpPost("ajukan")]
         public async Task<IActionResult> AjukanPeminjaman(
