@@ -1,0 +1,266 @@
+﻿@page
+@model PeminjamanAlat.Pages.Admin.UserModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Kelola User";
+    ViewData["ActivePage"] = "User";
+}
+
+<div class="p-5">
+
+    <div class="mb-4">
+        <h4 class="fw-bold">Kelola User</h4>
+        <p class="text-muted">Manajemen akun pengguna yang memiliki akses ke sistem.</p>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <div class="w-50">
+            <input type="text"
+                   id="searchBox"
+                   class="form-control form-control-sm"
+                   placeholder="Cari user..."
+                   style="border-radius:12px;">
+        </div>
+
+        <button class="btn btn-primary btn-sm px-3"
+                onclick="openCreate()"
+                style="border-radius:12px;">
+            <i class="bi bi-person-plus me-1"></i> Tambah User
+        </button>
+
+    </div>
+
+    <div class="card border-0 shadow-sm" style="border-radius:20px;">
+        <div class="card-body p-4">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="bg-light text-secondary small">
+                        <tr>
+                            <th>NAMA</th>
+                            <th>USERNAME</th>
+                            <th>ROLE</th>
+                            <th>STATUS</th>
+                            <th class="text-center">AKSI</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+
+                        @foreach (var u in Model.DataUser)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-2 me-3">
+                                            <i class="bi bi-person-fill"></i>
+                                        </div>
+
+                                        <span class="fw-bold">@u.Nama</span>
+                                    </div>
+                                </td>
+
+                                <td class="text-muted">@u.Username</td>
+
+                                <td>
+                                    <span class="badge bg-info-subtle text-info rounded-pill px-3">
+                                        @u.Role
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="badge bg-success-subtle text-success rounded-pill px-3">
+                                        Aktif
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
+
+                                    <div class="d-flex justify-content-center gap-2">
+
+                                        <button onclick="openEdit(@u.IdUser,'@u.Nama','@u.Username','@u.Role')"
+                                                class="btn btn-outline-warning btn-sm rounded-pill px-3">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </button>
+
+                                        <button onclick="openDelete(@u.IdUser)"
+                                                class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- CREATE -->
+<div class="modal fade" id="modalCreate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form method="post" asp-page-handler="Create">
+
+                <div class="modal-header">
+                    <h5>Tambah User</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <input name="Input.Nama"
+                           class="form-control mb-2"
+                           placeholder="Nama">
+
+                    <input name="Input.Username"
+                           class="form-control mb-2"
+                           placeholder="Username">
+
+                    <input name="Input.Password"
+                           type="password"
+                           class="form-control mb-2"
+                           placeholder="Password">
+
+                    <select name="Input.Role"
+                            class="form-control">
+
+                        <option value="Admin">Admin</option>
+                        <option value="Petugas">Petugas</option>
+                        <option value="Peminjam">Peminjam</option>
+
+                    </select>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- EDIT -->
+<div class="modal fade" id="modalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form method="post" asp-page-handler="Edit">
+
+                <div class="modal-header">
+                    <h5>Edit User</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden"
+                           id="editId"
+                           name="Input.IdUser">
+
+                    <input id="editNama"
+                           name="Input.Nama"
+                           class="form-control mb-2">
+
+                    <input id="editUsername"
+                           name="Input.Username"
+                           class="form-control mb-2">
+
+                    <input name="Input.Password"
+                           type="password"
+                           class="form-control mb-2"
+                           placeholder="Kosongkan jika tidak diubah">
+
+                    <select id="editRole"
+                            name="Input.Role"
+                            class="form-control">
+
+                        <option value="Admin">Admin</option>
+                        <option value="Petugas">Petugas</option>
+                        <option value="Peminjam">Peminjam</option>
+
+                    </select>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-warning">Update</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- DELETE -->
+<div class="modal fade" id="modalDelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form method="post" asp-page-handler="Delete">
+
+                <div class="modal-header">
+                    <h5>Hapus User</h5>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="deleteId" name="IdUser">
+                    <p>Yakin hapus user ini?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger">Hapus</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCreate() {
+        new bootstrap.Modal(document.getElementById('modalCreate')).show();
+    }
+
+    function openEdit(id, nama, username, role) {
+        editId.value = id;
+        editNama.value = nama;
+        editUsername.value = username;
+        editRole.value = role;
+
+        new bootstrap.Modal(document.getElementById('modalEdit')).show();
+    }
+
+    function openDelete(id) {
+        deleteId.value = id;
+        new bootstrap.Modal(document.getElementById('modalDelete')).show();
+    }
+
+    document.getElementById("searchBox").addEventListener("keyup", function () {
+
+        let keyword = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            row.style.display =
+                row.innerText.toLowerCase().includes(keyword)
+                    ? ""
+                    : "none";
+        });
+
+    });
+</script>

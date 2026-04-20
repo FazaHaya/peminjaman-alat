@@ -1,0 +1,59 @@
+﻿@page
+@model PeminjamanAlat.Pages.Petugas.PersetujuanModel
+@{
+    Layout = "_LayoutPetugas";
+    ViewData["Title"] = "Persetujuan Peminjaman";
+    ViewData["ActivePage"] = "Persetujuan";
+}
+
+<div class="p-5">
+    <div class="mb-4">
+        <h4 class="fw-bold">Persetujuan Peminjaman</h4>
+        <p class="text-muted">Verifikasi pengajuan peminjaman alat yang masuk.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="bg-light text-secondary small">
+                        <tr>
+                            <th class="ps-3">PEMINJAM</th>
+                            <th>ALAT & JUMLAH</th>
+                            <th>TANGGAL PINJAM</th>
+                            <th class="pe-3">AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model.DaftarVerifikasi)
+                        {
+                            <tr>
+                                <td class="ps-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light rounded-circle p-2 me-3 text-primary"><i class="bi bi-person"></i></div>
+                                        <span class="fw-bold">@(p.NamaPeminjam ?? "-")</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="fw-bold">@p.NamaAlat</span>
+                                    <span class="badge bg-info bg-opacity-10 text-info ms-2">@(p.Jumlah ?? 0) Unit</span>
+                                </td>
+                                <td>@p.TanggalPinjam?.ToString("dd MMM yyyy")</td>
+                                <td class="text-end pe-3">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <form method="post" asp-page-handler="Approve" asp-route-id="@p.IdPeminjaman">
+                                            <button type="submit" class="btn btn-primary btn-sm rounded-pill px-3">Setujui</button>
+                                        </form>
+                                        <form method="post" asp-page-handler="Reject" asp-route-id="@p.IdPeminjaman">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3">Tolak</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

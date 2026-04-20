@@ -1,0 +1,222 @@
+﻿@page
+@model PeminjamanAlat.Pages.Admin.KategoriModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Kelola Kategori";
+    ViewData["ActivePage"] = "Kategori";
+}
+
+<div class="container-fluid p-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Kelola Kategori</h3>
+            <p class="text-muted mb-0">Manajemen kategori alat inventaris</p>
+        </div>
+
+        <button class="btn btn-primary rounded-pill px-4"
+                onclick="openCreate()">
+            <i class="bi bi-plus-circle me-2"></i>Tambah Kategori
+        </button>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body">
+            <input type="text"
+                   id="searchBox"
+                   class="form-control rounded-pill"
+                   placeholder="Cari kategori...">
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Nama Kategori</th>
+                            <th>Total Alat</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+
+                        @foreach (var item in Model.DataKategori)
+                        {
+                            <tr>
+                                <td class="fw-semibold">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-2 me-3">
+                                            <i class="bi bi-tags"></i>
+                                        </div>
+                                        @item.NamaKategori
+                                    </div>
+                                </td>
+
+                                <td>@item.TotalAlat</td>
+
+                                <td class="text-center">
+
+                                    <button class="btn btn-sm btn-outline-warning rounded-pill px-3"
+                                            onclick="openEdit(@item.IdKategori)">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+
+                                    <button class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                            onclick="openDelete(@item.IdKategori)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- CREATE -->
+<div class="modal fade" id="modalCreate">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0">
+
+            <form method="post" asp-page-handler="Create">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Tambah Kategori</h5>
+                </div>
+
+                <div class="modal-body">
+                    <input name="Input.NamaKategori"
+                           class="form-control"
+                           placeholder="Nama kategori"
+                           required>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary rounded-pill px-4">
+                        Simpan
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- EDIT -->
+<div class="modal fade" id="modalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0">
+
+            <form method="post" asp-page-handler="Edit">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Edit Kategori</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden"
+                           id="editId"
+                           name="Input.IdKategori">
+
+                    <input id="editNama"
+                           name="Input.NamaKategori"
+                           class="form-control">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-warning rounded-pill px-4">
+                        Update
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- DELETE -->
+<div class="modal fade" id="modalDelete">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0">
+
+            <form method="post" asp-page-handler="Delete">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Hapus Kategori</h5>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden"
+                           id="deleteId"
+                           name="IdKategori">
+
+                    <p>Yakin ingin menghapus kategori ini?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger rounded-pill px-4">
+                        Hapus
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCreate(){
+        new bootstrap.Modal(document.getElementById('modalCreate')).show();
+    }
+
+    function openDelete(id){
+        document.getElementById("deleteId").value = id;
+        new bootstrap.Modal(document.getElementById('modalDelete')).show();
+    }
+
+    function openEdit(id){
+
+        fetch('/api/Kategori/' + id)
+        .then(res => res.json())
+        .then(data => {
+
+            document.getElementById("editId").value = data.idKategori;
+            document.getElementById("editNama").value = data.namaKategori;
+
+            new bootstrap.Modal(document.getElementById('modalEdit')).show();
+        });
+    }
+
+    document.getElementById("searchBox").addEventListener("keyup", function(){
+
+        let keyword = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            row.style.display =
+                row.innerText.toLowerCase().includes(keyword)
+                ? ""
+                : "none";
+        });
+    });
+</script>

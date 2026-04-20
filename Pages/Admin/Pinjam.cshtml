@@ -1,0 +1,218 @@
+﻿@page
+@model PeminjamanAlat.Pages.Admin.PeminjamanModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Data Peminjaman";
+    ViewData["ActivePage"] = "Peminjaman";
+}
+
+<div class="p-5">
+
+    <div class="mb-4">
+        <h4 class="fw-bold">Data Peminjaman</h4>
+        <p class="text-muted">Riwayat peminjaman alat oleh user.</p>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <input type="text" id="searchBox"
+               class="form-control form-control-sm w-50"
+               placeholder="Cari..."
+               style="border-radius:12px;">
+
+        <button class="btn btn-primary btn-sm px-3"
+                onclick="openCreate()"
+                style="border-radius:12px;">
+            <i class="bi bi-plus-circle"></i> Pinjam
+        </button>
+    </div>
+
+    <div class="card border-0 shadow-sm" style="border-radius:20px;">
+        <div class="card-body p-4">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="bg-light small text-secondary">
+                        <tr>
+                            <th>USER</th>
+                            <th>ALAT</th>
+                            <th>TANGGAL PINJAM</th>
+                            <th>TANGGAL KEMBALI</th>
+                            <th>STATUS</th>
+                            <th class="text-center">AKSI</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+                        @foreach (var p in Model.DataPeminjaman)
+                        {
+                            <tr>
+                                <td>@p.NamaUser</td>
+                                <td>@p.NamaAlat</td>
+                                <td>@p.TanggalPinjam.ToString("dd MMM yyyy")</td>
+                                <td>@p.TanggalKembali.ToString("dd MMM yyyy")</td>
+
+                                <td>
+                                    @if (p.Status == "Pending")
+                                    {
+                                        <span class="badge bg-secondary">Pending</span>
+                                    }
+                                    else if (p.Status == "Dipinjam")
+                                    {
+                                        <span class="badge bg-warning text-dark">Dipinjam</span>
+                                    }
+                                    else if (p.Status == "Ditolak")
+                                    {
+                                        <span class="badge bg-danger">Ditolak</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Selesai</span>
+                                    }
+                                </td>
+
+                                <td class="text-center">
+
+                                    @if (p.Status == "Pending")
+                                    {
+                                        <form method="post" asp-page-handler="Approve" class="d-inline">
+                                            <input type="hidden" name="IdPeminjaman" value="@p.IdPeminjaman" />
+                                            <button class="btn btn-success btn-sm rounded-pill px-3">
+                                                Approve
+                                            </button>
+                                        </form>
+
+                                        <form method="post" asp-page-handler="Reject" class="d-inline">
+                                            <input type="hidden" name="IdPeminjaman" value="@p.IdPeminjaman" />
+                                            <button class="btn btn-danger btn-sm rounded-pill px-3">
+                                                Tolak
+                                            </button>
+                                        </form>
+                                    }
+
+                                    <button onclick="openDelete(@p.IdPeminjaman)"
+                                            class="btn btn-outline-danger btn-sm rounded-pill px-3">
+                                        Hapus
+                                    </button>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- CREATE -->
+<div class="modal fade" id="modalCreate">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form method="post" asp-page-handler="Create">
+
+                <div class="modal-header">
+                    <h5>Pinjam Alat</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <select name="Input.IdUser" class="form-control mb-3">
+                        <option value="">-- Pilih User --</option>
+                        @foreach (var u in Model.ListUser)
+                        {
+                            <option value="@u.IdUser">@u.Nama</option>
+                        }
+                    </select>
+
+                    <input type="date"
+                           name="Input.TanggalPinjam"
+                           class="form-control mb-3">
+
+                    <input type="date"
+                           name="Input.TanggalKembali"
+                           class="form-control mb-3">
+
+                    <textarea name="Input.Catatan"
+                              class="form-control mb-3"
+                              placeholder="Catatan"></textarea>
+
+                    <label class="fw-bold mb-2">Pilih Alat</label>
+
+                    <select name="SelectedAlat"
+                            multiple
+                            class="form-control">
+
+                        @foreach (var a in Model.ListAlat)
+                        {
+                            <option value="@a.IdAlat">
+                                @a.NamaAlat (Stok: @a.Stok)
+                            </option>
+                        }
+
+                    </select>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- DELETE -->
+<div class="modal fade" id="modalDelete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form method="post" asp-page-handler="Delete">
+
+                <div class="modal-header">
+                    <h5>Hapus Data</h5>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="DeleteId" name="IdPeminjaman">
+                    <p>Yakin hapus data ini?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger">Hapus</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCreate() {
+        new bootstrap.Modal(document.getElementById('modalCreate')).show();
+    }
+
+    function openDelete(id) {
+        document.getElementById("DeleteId").value = id;
+        new bootstrap.Modal(document.getElementById('modalDelete')).show();
+    }
+
+    document.getElementById("searchBox").addEventListener("keyup", function () {
+        let keyword = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            row.style.display =
+                row.innerText.toLowerCase().includes(keyword)
+                    ? ""
+                    : "none";
+        });
+    });
+</script>

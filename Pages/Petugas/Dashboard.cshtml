@@ -1,0 +1,192 @@
+﻿@page
+@model PeminjamanAlat.Pages.Petugas.DashboardModel
+@{
+    Layout = "_LayoutPetugas";
+    ViewData["Title"] = "Dashboard";
+    ViewData["ActivePage"] = "Dashboard";
+}
+
+<div class="container-fluid p-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Dashboard Petugas</h3>
+            <p class="text-muted mb-0">
+                Selamat bekerja, <strong>@User.Identity?.Name</strong>
+            </p>
+        </div>
+
+        <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+             style="width:48px;height:48px;">
+            <i class="bi bi-person-fill"></i>
+        </div>
+    </div>
+
+    <!-- INFO CARD -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4 text-white"
+         style="background:linear-gradient(135deg,#2563eb,#4f46e5);">
+        <div class="card-body p-4">
+            <h5 class="fw-bold">Fokus Hari Ini</h5>
+            <p class="mb-0 opacity-75">
+                Verifikasi pengajuan peminjaman dan pantau alat yang sedang dipakai.
+            </p>
+        </div>
+    </div>
+
+    <!-- STAT -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex align-items-center">
+
+                    <div class="bg-warning bg-opacity-10 text-warning rounded-4 p-3 me-3 fs-4">
+                        <i class="bi bi-hourglass-split"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="fw-bold mb-0">@Model.TotalMenunggu</h3>
+                        <small class="text-muted">Menunggu Approval</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex align-items-center">
+
+                    <div class="bg-primary bg-opacity-10 text-primary rounded-4 p-3 me-3 fs-4">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="fw-bold mb-0">@Model.TotalDipinjam</h3>
+                        <small class="text-muted">Sedang Dipinjam</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-body p-4 d-flex align-items-center">
+
+                    <div class="bg-success bg-opacity-10 text-success rounded-4 p-3 me-3 fs-4">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="fw-bold mb-0">@Model.TotalKembaliHariIni</h3>
+                        <small class="text-muted">Kembali Hari Ini</small>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- VERIFIKASI -->
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h5 class="fw-bold mb-1">Permintaan Peminjaman</h5>
+                    <small class="text-muted">Butuh persetujuan petugas</small>
+                </div>
+
+                <a asp-page="/Petugas/Persetujuan"
+                   class="btn btn-outline-primary rounded-pill px-3">
+                    Lihat Semua
+                </a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>Peminjam</th>
+                            <th>Alat</th>
+                            <th>Tanggal</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @if (Model.DaftarVerifikasi.Any())
+                        {
+                            @foreach (var item in Model.DaftarVerifikasi)
+                            {
+                                <tr>
+
+                                    <td>
+                                        <div class="fw-semibold">
+                                            @item.NamaPeminjam
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        @item.NamaAlat
+                                        <span class="badge bg-info-subtle text-info rounded-pill ms-2">
+                                            @item.Jumlah Unit
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        @item.TanggalPinjam?.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        <div class="d-flex justify-content-center gap-2">
+
+                                            <form method="post"
+                                                  asp-page-handler="Approve"
+                                                  asp-route-id="@item.IdPeminjaman">
+
+                                                <button class="btn btn-sm btn-primary rounded-pill px-3">
+                                                    Setujui
+                                                </button>
+                                            </form>
+
+                                            <form method="post"
+                                                  asp-page-handler="Reject"
+                                                  asp-route-id="@item.IdPeminjaman">
+
+                                                <button class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                    Tolak
+                                                </button>
+                                            </form>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center py-5 text-muted">
+                                    Tidak ada permintaan peminjaman.
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

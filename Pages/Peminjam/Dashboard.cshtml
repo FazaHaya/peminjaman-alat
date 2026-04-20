@@ -1,0 +1,41 @@
+@page
+@model PeminjamanAlat.Pages.Peminjam.DashboardModel
+@{
+    Layout = "_LayoutPeminjam";
+    ViewData["Title"] = "Dashboard";
+    ViewData["ActivePage"] = "Dashboard";
+}
+
+<div class="container-fluid p-4">
+
+    <div class="mb-4">
+        <h3 class="fw-bold">Dashboard</h3>
+        <p class="text-muted">Selamat datang @User.Identity.Name</p>
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <small class="text-muted">Sedang Dipinjam</small>
+                <h2 class="fw-bold text-primary">@Model.TotalAktif</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <small class="text-muted">Menunggu Approval</small>
+                <h2 class="fw-bold text-warning">@Model.TotalPending</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 p-4">
+                <small class="text-muted">Total Riwayat</small>
+                <h2 class="fw-bold text-success">@Model.TotalRiwayat</h2>
+            </div>
+        </div>
+
+    </div>
+
+</div>

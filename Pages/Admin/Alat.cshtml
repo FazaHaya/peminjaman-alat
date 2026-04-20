@@ -1,0 +1,228 @@
+﻿@page
+@model PeminjamanAlat.Pages.Admin.AlatModel
+@{
+    Layout = "_LayoutAdmin";
+    ViewData["Title"] = "Kelola Alat";
+    ViewData["ActivePage"] = "Alat";
+}
+
+<div class="container-fluid p-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Kelola Alat</h3>
+            <p class="text-muted mb-0">Manajemen data alat inventaris</p>
+        </div>
+
+        <button class="btn btn-primary rounded-pill px-4"
+                onclick="openCreate()">
+            <i class="bi bi-plus-circle me-2"></i>Tambah Alat
+        </button>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="card border-0 shadow-sm mb-4 rounded-4">
+        <div class="card-body">
+            <input type="text"
+                   id="searchBox"
+                   class="form-control rounded-pill"
+                   placeholder="Cari nama alat...">
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table align-middle table-hover mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th style="width:20%">Nama Alat</th>
+                            <th style="width:40%">Deskripsi</th>
+                            <th style="width:12%">Kategori</th>
+                            <th style="width:8%" class="text-center">Stok</th>
+                            <th style="width:10%" class="text-center">Status</th>
+                            <th style="width:10%" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+
+                        @foreach (var item in Model.DataAlat)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@item.NamaAlat</td>
+
+                                <td class="text-muted small" style="line-height:1.5;">
+                                    @(string.IsNullOrWhiteSpace(item.Deskripsi)
+                                                                    ? "-"
+                                                                    : item.Deskripsi.Length > 90
+                                                                    ? item.Deskripsi.Substring(0, 90) + "..."
+                                                                    : item.Deskripsi)
+                            </td>
+
+                                <td>@item.NamaKategori</td>
+
+                                <td class="text-center">@item.Stok</td>
+
+                                <td class="text-center">
+                                    <span class="badge bg-success-subtle text-success px-3 rounded-pill">
+                                        @item.Status
+                                    </span>
+                                </td>
+
+                                <td class="text-center">
+                                    <button class="btn btn-sm btn-outline-warning rounded-pill px-3 me-1"
+                                            onclick="openEdit(@item.IdAlat)">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+
+                                    <button class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                            onclick="openDelete(@item.IdAlat)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                                                }
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CREATE -->
+<div class="modal fade" id="modalCreate">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0">
+
+            <form method="post" asp-page-handler="Create">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Tambah Alat</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <input name="Input.KodeAlat" class="form-control mb-3" placeholder="Kode Alat">
+                    <input name="Input.NamaAlat" class="form-control mb-3" placeholder="Nama Alat">
+                    <input name="Input.Deskripsi" class="form-control mb-3" placeholder="Deskripsi">
+                    <input name="Input.Stok" type="number" class="form-control mb-3" placeholder="Stok">
+                    <input name="Input.IdKategori" type="number" class="form-control mb-3" placeholder="ID Kategori">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary rounded-pill px-4">Simpan</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDIT -->
+<div class="modal fade" id="modalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0">
+
+            <form method="post" asp-page-handler="Edit">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Edit Alat</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="IdAlat" name="Input.IdAlat">
+
+                    <input id="KodeAlat" name="Input.KodeAlat" class="form-control mb-3">
+                    <input id="NamaAlat" name="Input.NamaAlat" class="form-control mb-3">
+                    <input id="Deskripsi" name="Input.Deskripsi" class="form-control mb-3">
+                    <input id="Stok" name="Input.Stok" type="number" class="form-control mb-3">
+                    <input id="IdKategori" name="Input.IdKategori" type="number" class="form-control mb-3">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-warning rounded-pill px-4">Update</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL DELETE -->
+<div class="modal fade" id="modalDelete">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0">
+
+            <form method="post" asp-page-handler="Delete">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Hapus Alat</h5>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="DeleteId" name="IdAlat">
+                    <p>Yakin hapus data ini?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger rounded-pill px-4">Hapus</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCreate(){
+        new bootstrap.Modal(document.getElementById('modalCreate')).show();
+    }
+
+    function openDelete(id){
+        document.getElementById("DeleteId").value = id;
+        new bootstrap.Modal(document.getElementById('modalDelete')).show();
+    }
+
+    function openEdit(id){
+
+        fetch('/api/Alat/' + id)
+        .then(res => res.json())
+        .then(data => {
+
+            document.getElementById("IdAlat").value = data.idAlat;
+            document.getElementById("KodeAlat").value = data.kodeAlat;
+            document.getElementById("NamaAlat").value = data.namaAlat;
+            document.getElementById("Stok").value = data.stok;
+            document.getElementById("IdKategori").value = data.idKategori;
+
+            new bootstrap.Modal(document.getElementById('modalEdit')).show();
+        });
+    }
+
+    document.getElementById("searchBox").addEventListener("keyup", function () {
+
+        let value = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#tableBody tr");
+
+        rows.forEach(row => {
+            row.style.display =
+                row.innerText.toLowerCase().includes(value)
+                ? ""
+                : "none";
+        });
+    });
+</script>

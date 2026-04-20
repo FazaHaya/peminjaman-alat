@@ -1,0 +1,2 @@
+wwwroot\images\Lenovo_V15_G5.jpeg
+wwwroot\images\InFocus_IN114AA.jpg

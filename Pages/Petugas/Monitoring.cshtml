@@ -1,0 +1,224 @@
+﻿@page
+@model PeminjamanAlat.Pages.Petugas.MonitoringModel
+@{
+    Layout = "_LayoutPetugas";
+    ViewData["Title"] = "Monitoring";
+    ViewData["ActivePage"] = "Monitoring";
+}
+
+<div class="container-fluid p-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Monitoring Peminjaman</h3>
+            <p class="text-muted mb-0">
+                Pantau seluruh transaksi peminjaman dan pengembalian.
+            </p>
+        </div>
+
+        <span class="badge bg-primary rounded-pill px-3 py-2">
+            Total @Model.DataMonitoring.Count Data
+        </span>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body">
+            <input type="text"
+                   id="searchBox"
+                   class="form-control rounded-pill"
+                   placeholder="Cari nama peminjam...">
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-4">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Peminjam</th>
+                            <th>Tgl Pinjam</th>
+                            <th>Deadline</th>
+                            <th>Status</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody">
+
+                        @if (Model.DataMonitoring.Any())
+                        {
+                            @foreach (var item in Model.DataMonitoring)
+                            {
+                                <tr>
+                                    <td>#@item.IdPeminjaman</td>
+
+                                    <td class="fw-semibold">
+                                        @(item.User?.Nama ?? "-")
+                                    </td>
+
+                                    <td>
+                                        @item.TanggalPinjam.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @item.TanggalKembali.ToString("dd MMM yyyy")
+                                    </td>
+
+                                    <td>
+                                        @if (item.Status == "1" || item.Status == "Dipinjam" || item.Status == "Disetujui")
+                                        {
+                                            <span class="badge bg-success-subtle text-success rounded-pill px-3">
+                                                Dipinjam
+                                            </span>
+                                        }
+                                        else if (item.Status == "3")
+                                        {
+                                            <span class="badge bg-warning text-dark rounded-pill px-3">
+                                                Menunggu Verifikasi
+                                            </span>
+                                        }
+                                        else if (item.Status == "4")
+                                        {
+                                            <span class="badge bg-danger rounded-pill px-3">
+                                                Belum Lunas
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary rounded-pill px-3">
+                                                Selesai
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+
+                                        @if (item.Status == "3")
+                                        {
+                                            <button class="btn btn-success btn-sm rounded-pill px-3"
+                                                    onclick="openModal(@item.IdPeminjaman)">
+                                                Verifikasi
+                                            </button>
+                                        }
+                                        else if (item.Status == "4")
+                                        {
+                                            <form method="post"
+                                                  asp-page-handler="BayarLunas"
+                                                  class="d-inline">
+
+                                                <input type="hidden"
+                                                       name="id"
+                                                       value="@item.IdPeminjaman" />
+
+                                                <button class="btn btn-primary btn-sm rounded-pill px-3">
+                                                    Lunas
+                                                </button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">-</span>
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="6"
+                                    class="text-center py-5 text-muted">
+                                    Tidak ada data monitoring.
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- MODAL VERIFIKASI -->
+<div class="modal fade" id="modalVerifikasi">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-4 border-0">
+
+            <form method="post"
+                  asp-page-handler="KonfirmasiTerima">
+
+                <div class="modal-header">
+                    <h5 class="fw-bold">Verifikasi Pengembalian</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden"
+                           id="idPinjam"
+                           name="id" />
+
+                    <label class="mb-1">Kondisi</label>
+                    <select name="kondisi"
+                            class="form-control mb-3">
+                        <option>Bagus</option>
+                        <option>Rusak Ringan</option>
+                        <option>Rusak Berat</option>
+                        <option>Hilang</option>
+                    </select>
+
+                    <label class="mb-1">Biaya Kerusakan</label>
+                    <input type="number"
+                           name="biayaKerusakan"
+                           value="0"
+                           class="form-control" />
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-success rounded-pill px-4">
+                        Simpan
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function openModal(id){
+            document.getElementById("idPinjam").value = id;
+
+            new bootstrap.Modal(
+                document.getElementById("modalVerifikasi")
+            ).show();
+        }
+
+        document.getElementById("searchBox").addEventListener("keyup", function () {
+
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#tableBody tr");
+
+            rows.forEach(row => {
+                row.style.display =
+                    row.innerText.toLowerCase().includes(value)
+                    ? ""
+                    : "none";
+            });
+        });
+    </script>
+}

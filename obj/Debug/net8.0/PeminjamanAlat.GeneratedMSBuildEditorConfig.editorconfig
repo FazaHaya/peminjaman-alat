@@ -1,0 +1,105 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = PeminjamanAlat
+build_property.RootNamespace = PeminjamanAlat
+build_property.ProjectDir = C:\UJIKOM\PeminjamanAlat\PeminjamanAlat\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\UJIKOM\PeminjamanAlat\PeminjamanAlat
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Alat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQWxhdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Kategori.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cS2F0ZWdvcmkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/Pinjam.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cUGluamFtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Admin/User.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Auth/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Peminjam/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVtaW5qYW1cRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Peminjam/Katalog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVtaW5qYW1cS2F0YWxvZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Peminjam/Riwayat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGVtaW5qYW1cUml3YXlhdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Petugas/DaftarAlat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGV0dWdhc1xEYWZ0YXJBbGF0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Petugas/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGV0dWdhc1xEYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Petugas/Laporan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGV0dWdhc1xMYXBvcmFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Petugas/Monitoring.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGV0dWdhc1xNb25pdG9yaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Petugas/Persetujuan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGV0dWdhc1xQZXJzZXR1anVhbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Shared/_LayoutAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Shared/_LayoutPeminjam.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXRQZW1pbmphbS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/Shared/_LayoutPetugas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXRQZXR1Z2FzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/UJIKOM/PeminjamanAlat/PeminjamanAlat/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

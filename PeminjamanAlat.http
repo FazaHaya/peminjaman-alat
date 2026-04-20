@@ -1,0 +1,6 @@
+@PeminjamanAlat_HostAddress = http://localhost:5075
+
+GET {{PeminjamanAlat_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
